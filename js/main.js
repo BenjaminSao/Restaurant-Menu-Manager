@@ -44,12 +44,16 @@ Vue.component('itemdialogue', {
         price : this.itemPrice
       });
       this.$emit('item-added')
+    },
+    collaspeDialogue() {
+      this.$emit('item-added')
     }
   },
   //HTML code (v-model assigns data to data variables)
   template: `
     <div>
       <form>
+        <div class="form-group">
           <label>Menu Item Name</label><br>
           <input v-model="itemName"><br>
           <label>Description</label><br>
@@ -57,6 +61,8 @@ Vue.component('itemdialogue', {
           <label>Price<br>$</label>
           <input v-model="itemPrice"><br>
           <button type="button" class="btn btn-primary" @click="onSubmit">Add to Menu</button>
+          <button @click="collaspeDialogue" class="btn btn-warning">Cancel</button>
+        </div>
       </form>
     </div>
   `
