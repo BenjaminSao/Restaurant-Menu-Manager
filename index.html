@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <head>
+        <title>Restaurant Menu Manager</title>
+        <script src="./js/vue.js"></script>
+    </head>
+
+    <body>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+
+        <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCJo1CtVIJ7MU3n4M3DZKKpPpmm95V7rKA",
+            authDomain: "restuarant-menu-manager.firebaseapp.com",
+            databaseURL: "https://restuarant-menu-manager.firebaseio.com",
+            projectId: "restuarant-menu-manager",
+            storageBucket: "restuarant-menu-manager.appspot.com",
+            messagingSenderId: "772716602961",
+            appId: "1:772716602961:web:71666e719eef5895b4ba70"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        </script>
+
+        <div id="app">
+            <div id="heading">
+                <nav class="navbar navbar-dark bg-primary">
+                    <h1 style="color:white">Restaurant Menu Manager</h1>
+                  </nav>
+            </div>
+
+            <div id="main">
+                <ul class="list-group">
+                    <li v-for="item in items" class="list-group-item">
+                        <h1>{{ item.name }}</h1><br>
+                        <p>{{ item.description }}</p><br>
+                        <p>$ {{ item.price }}</p>
+                        <button id="item" @click="deleteitem(item)" class="btn btn-danger">Delete</button>
+                        <button id="item" @click="edititem(item); showChangeDialogue = true" class="btn btn-warning">Edit</button>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-primary" @click="showItemDialogue = true" v-if="!showItemDialogue">Add Item</button>
+                <itemdialogue v-if="showItemDialogue" @item-added="hideDialogue()"></itemdialogue>
+
+
+                <div v-if="showChangeDialogue">
+                    <h2>Editing: {{ toedit }}</h2>
+                    <form>
+                        <label>Menu Item Name</label><br>
+                        <input v-model="new_name"><br>
+                        <label>Description</label><br>
+                        <textarea v-model="new_description"></textarea><br>
+                        <label>Price<br>$</label>
+                        <input v-model="new_price"><br>
+                        <button type="button" class="btn btn-primary" @click="changeItem(); showChangeDialogue = false">Change</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <script src="./js/main.js"></script>
+    </body>
+</html>
