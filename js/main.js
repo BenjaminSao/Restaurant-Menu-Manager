@@ -4,6 +4,7 @@ var ref = database.ref()
 var items = []
 var toedit = ""
 
+// Read Data and append to array
 ref.once("value", function(data) {
   if(data.val() != null) {
     var datamenuitems =  data.val()
@@ -31,19 +32,23 @@ Vue.component('itemdialogue', {
   //Adds methods
   methods: {
     onSubmit(){
-      let item = {
-        name: this.itemName,
-        description: this.itemDescription,
-        price: this.itemPrice
+      if(this.itemName && this.itemDescription && this.itemPrice && !isNaN(this.itemPrice)) {
+        let item = {
+          name: this.itemName,
+          description: this.itemDescription,
+          price: this.itemPrice
+        }
+        items.push(item)
+        console.log(items)
+        firebase.database().ref(this.itemName).set({
+          name: this.itemName,
+          description: this.itemDescription,
+          price : this.itemPrice
+        });
+        this.$emit('item-added')
+      } else {
+        alert(`Please fill in the dialogue correctly!`)
       }
-      items.push(item)
-      console.log(items)
-      firebase.database().ref(this.itemName).set({
-        name: this.itemName,
-        description: this.itemDescription,
-        price : this.itemPrice
-      });
-      this.$emit('item-added')
     },
     collaspeDialogue() {
       this.$emit('item-added')
@@ -100,6 +105,12 @@ var app = new Vue({
             items[i].price = this.new_price
           }
         }
+        firebase.database().ref(this.new_name).set({
+          name: this.new_name,
+          description: this.new_description,
+          price : this.new_price
+        });
+        firebase.database().ref(this.toedit).remove()
       },
       hideDialogue() {
         this.showItemDialogue = false
