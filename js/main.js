@@ -195,9 +195,9 @@ var app = new Vue({
           if(this.new_name != this.toedit){
             firebase.database().ref(this.toedit).remove()
           }
-          new_name = ""
-          new_description = ""
-          new_price = ""
+          this.new_name = ""
+          this.new_description = ""
+          this.new_price = ""
         } else {
           alert(`Please fill in the dialogue correctly!`)
         }
