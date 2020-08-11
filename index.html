@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <head>
         <title>Restaurant Menu Manager</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
@@ -32,60 +32,53 @@
         </script>
 
         <div id="app">
-            <section class="hero is-primary">
-                <div class="hero-body">
-                    <div class="container">
-                        <h1 class="title is-1">Restaurant Menu Manager</h1>
-                    </div>
-                </div>
-            </section>
+            <headings></headings>
 
             <div id="main">
-                <section class="section">
-                    <div class="container">
-                        <div class="columns">
-                          <div class="column" v-for="items in items">
-                            <div class="card">
-                              <div class="card-content">
-                                <div class="media">
-                                  <div class="media-left">
-                                  </div>
-                                  <div class="media-content">
-                                    <p class="title is-4">{{ items.name }}</p>
-                                    <p class="subtitle is-6">${{ items.price }}</p>
-                                  </div>
-                                </div>
-                            
-                                <div class="content">
-                                  {{ items.description }}
-                                  <br>
-                                </div>
-                                <button id="item" @click="deleteitem(items)" class="btn btn-danger">Delete</button>
-                                <button id="item" @click="edititem(items); showChangeDialogue = true" class="btn btn-warning">Edit</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                <menuitems @change-data="edititem" @show-change-dialogue="showChangeDialogue = true"></menuitems>
+                <div class="columns is-centered">
+                    <div class="column has-text-centered is-2">
+                        <button type="button" class="button is-dark" @click="showItemDialogue = true" v-if="!showItemDialogue">Add Item</button>
                     </div>
-                </section>
-                <button type="button" class="btn btn-primary" @click="showItemDialogue = true" v-if="!showItemDialogue">Add Item</button>
-                <itemdialogue v-if="showItemDialogue" @item-added="hideDialogue()"></itemdialogue>
-
-
-                <div v-if="showChangeDialogue">
-                    <h2>Editing: {{ toedit }}</h2>
-                    <form>
-                        <label>Menu Item Name</label><br>
-                        <input v-model="new_name"><br>
-                        <label>Description</label><br>
-                        <textarea v-model="new_description"></textarea><br>
-                        <label>Price<br>$</label>
-                        <input v-model="new_price"><br>
-                        <button type="button" class="btn btn-primary" @click="changeItem(); showChangeDialogue = false">Change</button>
-                        <button type="button" class="btn btn-warning" @click="showChangeDialogue = false">Cancel</button>
-                    </form>
                 </div>
 
+                <p class="pb-6"></p>
+                    <itemdialogue v-if="showItemDialogue" @item-added="hideDialogue()"></itemdialogue>
+                <p class="pb-6"></p>
+
+                <div v-if="showChangeDialogue">
+                    `<div class="columns is-centered">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="field">
+                                    <label class="label">Editing: {{ toedit }}</label>
+                                    <div class="control">
+                                        <input v-model="new_name" type="text" class="input is-rounded">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Description</label>
+                                    <div class="control">                     
+                                      <textarea class="textarea is-rounded" v-model = "new_description"></textarea>
+                                    </div>
+                                  </div>
+                                  <label class="label"></label>
+                                  <div class="field has-addons">
+                                    <div class="control">
+                                      <a class="button is-static">
+                                        Price
+                                      </a>
+                                    </div>
+                                    <div class="control">
+                                      <input v-model="new_price" class="input is-rounded" type="text">
+                                    </div>
+                                  </div>
+                                    <button type="button" class="button is-black" @click="changeItem(); showChangeDialogue = false">Change</button>
+                                    <button @click="showChangeDialogue = false" class="button is-light">Cancel</button>
+                            </fieldset>
+                        </form>
+                        </div>`
+                </div>
             </div>
         </div>
         <script src="./js/main.js"></script>
