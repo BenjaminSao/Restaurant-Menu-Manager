@@ -32,19 +32,18 @@
         </script>
 
         <div id="app">
+            <font face="Montserrat">
             <headings></headings>
 
             <div id="main">
-                <menuitems @change-data="edititem" @show-change-dialogue="showChangeDialogue = true"></menuitems>
+                    <menuitems @change-data="edititem" @show-change-dialogue="showChangeDialogue = true"></menuitems>
                 <div class="columns is-centered">
                     <div class="column has-text-centered is-2">
                         <button type="button" class="button is-dark" @click="showItemDialogue = true" v-if="!showItemDialogue">Add Item</button>
                     </div>
                 </div>
 
-                <p class="pb-6"></p>
-                    <itemdialogue v-if="showItemDialogue" @item-added="hideDialogue()"></itemdialogue>
-                <p class="pb-6"></p>
+                <itemdialogue v-if="showItemDialogue" @item-added="hideDialogue()"></itemdialogue>
 
                 <div v-if="showChangeDialogue">
                     `<div class="columns is-centered">
@@ -73,10 +72,17 @@
                                       <input v-model="new_price" class="input is-rounded" type="text">
                                     </div>
                                   </div>
+                                  <div class="field">
+                                      <label class="label">Image URL</label>
+                                      <div class="control">
+                                          <input v-model="new_imgsrc" class="input is-rounded" type="text">
+                                      </div>
+                                  </div>
                                     <button type="button" class="button is-black" @click="changeItem(); showChangeDialogue = false">Change</button>
                                     <button @click="showChangeDialogue = false" class="button is-light">Cancel</button>
                             </fieldset>
                         </form>
+                        </font>
                         </div>`
                 </div>
             </div>
