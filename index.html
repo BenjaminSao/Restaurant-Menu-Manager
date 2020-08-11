@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <head>
         <title>Restaurant Menu Manager</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
         <script src="./js/vue.js"></script>
     </head>
 
@@ -31,22 +32,42 @@
         </script>
 
         <div id="app">
-            <div id="heading">
-                <nav class="navbar navbar-dark bg-primary">
-                    <h1 style="color:white">Restaurant Menu Manager</h1>
-                  </nav>
-            </div>
+            <section class="hero is-primary">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title is-1">Restaurant Menu Manager</h1>
+                    </div>
+                </div>
+            </section>
 
             <div id="main">
-                <ul class="list-group">
-                    <li v-for="item in items" class="list-group-item">
-                        <h1>{{ item.name }}</h1><br>
-                        <p>{{ item.description }}</p><br>
-                        <p>$ {{ item.price }}</p>
-                        <button id="item" @click="deleteitem(item)" class="btn btn-danger">Delete</button>
-                        <button id="item" @click="edititem(item); showChangeDialogue = true" class="btn btn-warning">Edit</button>
-                    </li>
-                </ul>
+                <section class="section">
+                    <div class="container">
+                        <div class="columns">
+                          <div class="column" v-for="items in items">
+                            <div class="card">
+                              <div class="card-content">
+                                <div class="media">
+                                  <div class="media-left">
+                                  </div>
+                                  <div class="media-content">
+                                    <p class="title is-4">{{ items.name }}</p>
+                                    <p class="subtitle is-6">${{ items.price }}</p>
+                                  </div>
+                                </div>
+                            
+                                <div class="content">
+                                  {{ items.description }}
+                                  <br>
+                                </div>
+                                <button id="item" @click="deleteitem(items)" class="btn btn-danger">Delete</button>
+                                <button id="item" @click="edititem(items); showChangeDialogue = true" class="btn btn-warning">Edit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </section>
                 <button type="button" class="btn btn-primary" @click="showItemDialogue = true" v-if="!showItemDialogue">Add Item</button>
                 <itemdialogue v-if="showItemDialogue" @item-added="hideDialogue()"></itemdialogue>
 
